@@ -1,0 +1,361 @@
+// variables
+
+$dark: #5e5e5e;
+$white: #ffffff;
+$element-border-radius: 3px;
+$header-height: 130px;
+$footer-height: 80px;
+
+
+// General rules
+
+html, body {
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.2;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: $dark;
+
+    @media screen and (min-width: 768px) {
+        font-size: 16px;
+    }
+
+    @media screen and (min-width: 1024px) {
+        font-size: 18px;
+    }
+}
+
+* {
+    box-sizing: border-box;
+}
+
+h2, h3, h4, h5, h6 {
+    margin-top: 0;
+    margin-bottom: 0.8em;
+}
+
+a {
+    text-decoration: none;
+}
+
+p {
+    margin: 0;
+}
+
+%no-border {
+    border: none !important;
+}
+
+%element-round {
+    border-radius: 50%;
+}
+
+.main-menu, .footer-menu {
+    ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .menu-item {
+        display: inline-block;
+
+        a {
+            will-change: background-color, color;
+            transition: background-color 0.2s, color 0.2s;
+        }
+    }
+}
+
+header,
+footer {
+    background-color: $dark;
+    color: $white;
+}
+
+header,
+footer,
+.article {
+    padding: 1.2rem;
+}
+
+
+
+// Header items
+
+header {
+    display: flex;
+    flex-wrap: wrap;
+    min-height: $header-height;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.logo {
+    @extend %element-round;
+    max-width: 100px;
+    max-height: 100px;
+    width: 20%;
+}
+
+.main-menu {
+    margin-left: auto; // Check what happens if you remove margin-left: auto
+    margin-top: 1.2rem;
+
+    @media screen and (min-width: 768px) {
+        margin: 0;
+    }
+
+    .menu-item {
+        @media screen and (min-width: 768px) {
+            position: relative;
+        }
+
+        &:hover {
+            > .sub-menu {
+                transform: scale(1,1);
+                opacity: 1;
+            }
+        }
+    }
+
+    a {
+        display: block;
+        color: $white;
+        padding: 0.6em;
+        line-height: 1.2em;
+        border-radius: $element-border-radius;
+
+        &:hover,
+        &:focus {
+            color: $dark;
+            background-color: $white;
+        }
+    }
+}
+
+.sub-menu {
+    width: 100%;
+    position: absolute;
+    right: 0;
+    padding-top: 10px;
+    will-change: transform, opacity;
+    opacity: 0;
+    transform: scale(1,0);
+    transform-origin: top;
+    transition: transform 0.2s linear, opacity 0.2s linear;
+
+    @media screen and (min-width: 768px) {
+        width: auto;
+        min-width: 120px;
+    }
+
+    ul {
+        background-color: $dark;
+        color: $white;
+        border-radius: $element-border-radius;
+        border: 1px solid $white;
+
+        // cssarrowplease.com
+        @media screen and (min-width: 768px) {
+            &:before, &:after {
+                top: -7px;
+                left: 85%;
+                border: solid transparent;
+                border-color: transparent;
+                border-bottom-color: $white;
+                content: " ";
+                height: 0;
+                width: 0;
+                position: absolute;
+                pointer-events: none;
+            }
+        
+            &:before {
+                border-width: 9px;
+                margin-left: -9px;
+            }
+        
+            &:after {
+                border-width: 8px;
+                margin-left: -8px;
+            }
+        }
+    }
+}
+
+.main-title {
+    text-align: center;
+    margin: 0;
+    width: 75%;
+
+    @media screen and (min-width: 768px) {
+        width: auto;
+    }
+}
+
+.articles-container {
+    @media screen and (min-width: 768px) {
+        display: flex;
+        flex-wrap: wrap;
+    }
+}
+
+.main-content {
+    @media screen and (min-width: 1024px) {
+        display: flex;
+        align-items: flex-start;
+    }
+
+    .article {
+        border-bottom: 1px dotted $dark;
+        @media screen and (min-width: 768px) {
+            flex: 1 1 50%;
+            max-width: 50%;
+            // Check what happens if you delete the last article. Check what happens if you remove max-width: 50%, too.
+        }
+
+        &:last-child,
+        &:nth-last-child(2) {
+            @media screen and (min-width: 1024px) {
+                border: none;
+            }
+        }
+
+        &.article--featured {
+            border-top: 1px dotted $dark;
+            background-color: rgba(94,94,94,0.1);
+
+            @media screen and (min-width: 768px) {
+                flex: 1 0 100%;
+                max-width: 100%;
+            }
+        }
+
+        img {
+            margin-bottom: 0.3rem;
+            width: 100%;
+    
+            @media screen and (min-width: 768px) {
+                width: auto;
+                margin-right: 0.8rem;
+                float: left;
+            }
+        }
+    }
+
+    .articles-container {
+        @media screen and (min-width: 1024px) {
+            flex: 3;
+        }
+    }
+}
+
+.side-content {
+    padding-top: 1.2rem;
+
+    @media screen and (min-width: 768px) {
+        font-size: 0.9rem;
+    }
+    
+    @media screen and (min-width: 1024px) {
+        flex: 1;
+    }
+
+    .articles-container {
+        @media screen and (min-width: 1024px) {
+            display: block;
+        }
+    }
+
+    .article {
+        @extend %no-border;
+        overflow: auto;
+
+        @media screen and (min-width: 1024px) {
+            flex: none;
+            max-width: 100%;
+        }
+
+        img {
+            margin: 0 0.8rem 0.3rem 0;
+            width: auto;
+            float: left;
+        }
+    }
+}
+
+.side-content-title {
+    margin-left: 1.2rem;
+}
+
+
+
+// Footer items
+
+footer {
+    font-size: 0.9rem;
+    text-align: center;
+
+    @media screen and (min-width: 600px) {
+        height: $footer-height;
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+.footer-copyright {
+    margin-top: 1.2rem;
+
+    @media screen and (min-width: 600px) {
+        margin-top: 0;
+    }
+}
+
+.footer-menu {
+    .menu-item {
+        padding: 0 0.2rem;
+        &:last-child {
+            padding-right: 0;
+        }
+        
+        &:hover {
+            a {
+                animation: pop 0.8s ease-in-out;
+                color: $dark;
+                background-color: $white;
+            }
+        }
+    }
+
+    a {
+        @extend %element-round;
+        color: $white;
+        width: 40px;
+        height: 40px;
+        font-size: 26px;
+        border: 1px solid $white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transform-origin: center;
+
+        &:focus {
+            color: $dark;
+            background-color: $white;
+        }
+    }
+}
+
+@keyframes pop {
+    0% {transform: scale(0);}
+    20% {transform: scale(1.2);}
+    40% {transform: scale(0.8);}
+    60% {transform: scale(1.1);}
+    80% {transform: scale(0.9);}
+    100% {transform: scale(1);}
+}
